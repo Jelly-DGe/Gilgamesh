@@ -67,14 +67,16 @@ public class ServerHandle implements Runnable {
                     responseReport = "HTTP/1.1 200 OK\r\nLast-Modified: " + lastModified + "\r\nServer: " + ServerConfig.DISPLAY_SERVER_NAME + "\r\n\r\n";
                     outputStream.write(responseReport.getBytes());
                     outputStream.flush();
-                    InputStream in = new FileInputStream(file);
-                    byte[] buffer = new byte[102400];
+                    //缓冲方式输入文件流
+                    BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+                    byte[] bys = new byte[1024];
                     int len = 0;
-                    while ((len = in.read(buffer, 0, 102400)) != -1) {
-                        outputStream.write(buffer, 0, len);
+                    while ((len = bis.read(bys)) != -1) {
+                        outputStream.write(bys,0,len);
                         outputStream.flush();
                     }
-                    in.close();
+                    bis.close();
+
                 }
             } else {
                 String content = "<html><head><title>Gligemesh-Server</title></head><body><p>404!</p></body></html>";
