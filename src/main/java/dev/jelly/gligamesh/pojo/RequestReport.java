@@ -45,8 +45,10 @@ public class RequestReport {
 
     /**
      * 无参构造
+     * @param i
+     * @param abc
      */
-    public RequestReport() {
+    public RequestReport(int i, String abc) {
     }
 
     public BufferedReader getReader() {
